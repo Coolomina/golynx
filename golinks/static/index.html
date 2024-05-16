@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+</head>
+<body>
+    <h1>WebSocket Example</h1>
+    <button onclick="connect()">Connect</button>
+    <button onclick="disconnect()">Disconnect</button>
+    <div id="messages"></div>
+    <input type="text" id="messageInput">
+    <button onclick="sendMessage()">Send</button>
+    <script>
+        var ws = null;
+
+        function connect() {
+            ws = new WebSocket("ws://" + window.location.host + "/cable");
+
+            ws.onopen = function(event) {
+                console.log("WebSocket connected!");
+            };
+
+            ws.onmessage = function(event) {
+                var messagesDiv = document.getElementById("messages");
+                messagesDiv.innerHTML += "<p>" + event.data + "</p>";
+            };
+        }
+
+        function disconnect() {
+            if (ws !== null) {
+                ws.close();
+                ws = null;
+                console.log("WebSocket disconnected!");
+            }
+        }
+
+        function sendMessage() {
+            var messageInput = document.getElementById("messageInput");
+            var message = messageInput.value;
+            if (ws !== null && message !== "") {
+                ws.send(message);
+                messageInput.value = "";
+            }
+        }
+    </script>
+</body>
+</html>
