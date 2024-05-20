@@ -21,3 +21,7 @@ class Database:
     
     def delete(self, link: str):
         del self._data[link]
+    
+    def flush(self):
+        logger.info("flushing!...")
+        pass

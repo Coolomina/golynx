@@ -16,7 +16,7 @@ requires-python = ">=3.11"
 [project.optional-dependencies]
 test = [
     "pytest",
-    "httpx"
+    "httpx",
 ]
 
 [tool.isort]
