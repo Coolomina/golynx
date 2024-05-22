@@ -17,6 +17,7 @@ requires-python = ">=3.11"
 test = [
     "pytest",
     "httpx",
+    "pytest-mock",
 ]
 
 [tool.isort]

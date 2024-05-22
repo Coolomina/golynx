@@ -1,5 +1,8 @@
 import logging
 
+from golynx.infrastructure.storage.disk import Disk
+from golynx.infrastructure.storage.storage import Storage
+
 logger = logging.getLogger("infrastructure/database")
 
 class Database:
@@ -8,9 +11,10 @@ class Database:
     def __init__(self) -> None:
         pass
     
-    def initialize(self):
+    def initialize(self, storage: Storage):
+        self.storage = storage
         logger.info("Initializing database...")
-        self._data = {}
+        self._data = self.storage.get()
         return self
     
     def get(self, link: str) -> str:
@@ -23,5 +27,4 @@ class Database:
         del self._data[link]
     
     def flush(self):
-        logger.info("flushing!...")
-        pass
+        self.storage.write(self._data)

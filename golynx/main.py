@@ -6,6 +6,7 @@ from starlette.applications import Starlette
 from starlette.routing import Mount
 from starlette.staticfiles import StaticFiles
 
+from golynx.infrastructure.storage.disk import Disk
 from golynx.services.data_flusher import DataFlusher
 
 from .handlers.go import Go
@@ -15,7 +16,8 @@ from .infrastructure.database import Database
 from .services.link_manager import LinkManager
 
 logger = initialize_logger()
-database: Database = Database().initialize()
+storage: Disk = Disk()
+database: Database = Database().initialize(storage=storage)
 link_manager = LinkManager(database=database)
 data_flusher = DataFlusher(database=database)
 
