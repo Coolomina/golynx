@@ -26,5 +26,8 @@ class Database:
     def delete(self, link: str):
         del self._data[link]
     
+    def get_all(self):
+        return self._data
+    
     def flush(self):
         self.storage.write(self._data)

@@ -1,6 +1,3 @@
-import pytest
-
-from golynx.infrastructure.database import Database 
 from .fixtures.database import setup_database
 from .fixtures.database import database
 

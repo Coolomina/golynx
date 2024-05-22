@@ -7,7 +7,7 @@ from golynx.infrastructure.storage.storage import Storage
 from golynx.main import routes, lifespan
 from golynx.services.data_flusher import DataFlusher
 from golynx.services.link_manager import LinkManager
-from .fixtures.database import FakeStorage, setup_database
+from .fixtures.database import FakeStorage
 
 storage: Storage = FakeStorage()
 database: Database = Database().initialize(storage=storage)
@@ -16,7 +16,6 @@ data_flusher = DataFlusher(database=database)
 app = Starlette(debug=True, routes=routes, lifespan=lifespan)
 client = TestClient(app)
 
-
-def test_go_get_returns_307(setup_database):
-    response = client.get('/go/test', follow_redirects=False)
-    assert response.status_code == HTTPStatus.TEMPORARY_REDIRECT
+def test_default_route_returns_200():
+    response = client.get('/')
+    assert response.status_code == HTTPStatus.OK

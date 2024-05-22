@@ -13,3 +13,6 @@ class LinkManager:
     
     def handle_delete(self, link: str):
         self.database.delete(link)
+    
+    def handle_get_all(self):
+        return self.database.get_all()

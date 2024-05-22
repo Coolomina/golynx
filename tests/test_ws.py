@@ -16,7 +16,8 @@ data_flusher = DataFlusher(database=database)
 app = Starlette(debug=True, routes=routes, lifespan=lifespan)
 client = TestClient(app)
 
-
-def test_go_get_returns_307(setup_database):
-    response = client.get('/go/test', follow_redirects=False)
-    assert response.status_code == HTTPStatus.TEMPORARY_REDIRECT
+def test_websocket():
+    with client.websocket_connect('/cable') as websocket:
+        websocket.send_text('test')
+        data = websocket.receive_text()
+        assert data == 'Received: test'
