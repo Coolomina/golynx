@@ -1,6 +1,6 @@
-from golinks.infrastructure.database import Database
-from golinks.services.link_manager import LinkManager 
-from golinks.models.domain.golink import Golink
+from golynx.infrastructure.database import Database
+from golynx.services.link_manager import LinkManager 
+from golynx.models.domain.golink import Golink
 from .fixtures.database import database
 
 link_manager = LinkManager(database=database)

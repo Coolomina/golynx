@@ -1,8 +1,8 @@
 from http import HTTPStatus
 
 from starlette.testclient import TestClient
-from golinks.main import app
-from golinks.infrastructure.database import Database
+from golynx.main import app
+from golynx.infrastructure.database import Database
 from .fixtures.database import setup_database
 
 client = TestClient(app)

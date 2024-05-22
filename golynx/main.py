@@ -6,7 +6,7 @@ from starlette.applications import Starlette
 from starlette.routing import Mount
 from starlette.staticfiles import StaticFiles
 
-from golinks.services.data_flusher import DataFlusher
+from golynx.services.data_flusher import DataFlusher
 
 from .handlers.go import Go
 from .handlers import cable
@@ -26,7 +26,7 @@ routes = [
     Route('/go', endpoint=go.update, methods=["PUT"]),
     Route('/go/{link}', endpoint=go.delete, methods=["DELETE"]),
     WebSocketRoute("/cable", endpoint=cable.websocket_endpoint),
-    Mount('/', app=StaticFiles(directory='golinks/static', html=True), name="static"),
+    Mount('/', app=StaticFiles(directory='golynx/static', html=True), name="static"),
 ]
 
 @contextlib.asynccontextmanager
