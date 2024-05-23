@@ -17,7 +17,13 @@ def test_set(setup_database):
     assert database._data[GOLINK.link] == GOLINK
 
 def test_delete(setup_database):
-    database._data['lol'] = 'lol.com'
-    database.delete('lol')
+    database._data[GOLINK.link] = GOLINK
+    database.delete(GOLINK.link)
     assert database._data == {}
     
+def test_get_all(setup_database):
+    database.set(GOLINK)
+    assert database.get_all() == {GOLINK.link: GOLINK.__dict__}
+
+def test_get_all_empty(setup_database):
+    assert database.get_all() == {}

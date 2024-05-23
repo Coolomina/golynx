@@ -1,3 +1,4 @@
+from ast import Dict
 import logging
 import pickle
 
@@ -31,7 +32,12 @@ class Database:
         del self._data[link]
     
     def get_all(self):
-        return self._data
+        if self._data.__len__ == 0:
+            return {}
+        data = {}
+        for link in self._data.keys():
+            data[link] = self._data[link].__dict__
+        return data
     
     def flush(self):
         data = pickle.dumps(self._data)

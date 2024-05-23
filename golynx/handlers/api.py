@@ -13,6 +13,11 @@ class API:
         self.link_manager = link_manager
     
     async def update(self, request: Request):
+        if 'X-Forwarded-Email' not in request.headers:
+            user_email = 'pepe@pepe.bat'
+        else:
+            user_email = request.headers['X-Forwarded-Email']
+
         body = await request.json()
         link = body.get('link', None)
         if link is None:
@@ -24,7 +29,7 @@ class API:
         
         golink_dto = GolinkDTO(**body)
         
-        self.link_manager.handle_update(golink_dto.toGolink("pepe@pepe.bat")) # TODO change
+        self.link_manager.handle_update(golink_dto.toGolink(user_email))
         
         return JSONResponse({'message': 'ok'}, status_code=HTTPStatus.CREATED)
     
