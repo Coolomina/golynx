@@ -1,12 +1,13 @@
 import logging
+import pickle
 
-from golynx.infrastructure.storage.disk import Disk
+from golynx.models.domain.golink import Golink
 from golynx.infrastructure.storage.storage import Storage
 
 logger = logging.getLogger("infrastructure/database")
 
 class Database:
-    default_redirection = "https://www.chiquitoipsum.com/"
+    default_redirection = Golink(link='default', redirection='https://www.chiquitoipsum.com/', created_by='pepe')
     
     def __init__(self) -> None:
         pass
@@ -14,14 +15,17 @@ class Database:
     def initialize(self, storage: Storage):
         self.storage = storage
         logger.info("Initializing database...")
-        self._data = self.storage.get()
+        try:
+            self._data = pickle.loads(self.storage.get())
+        except:
+            self._data = {}
         return self
     
-    def get(self, link: str) -> str:
+    def get(self, link: str) -> Golink:
         return self._data.get(link, self.default_redirection)
     
-    def set(self, link: str, redirection: str):
-        self._data[link] = redirection
+    def set(self, golink: Golink):
+        self._data[golink.link] = golink
     
     def delete(self, link: str):
         del self._data[link]
@@ -30,4 +34,5 @@ class Database:
         return self._data
     
     def flush(self):
-        self.storage.write(self._data)
+        data = pickle.dumps(self._data)
+        self.storage.write(data)

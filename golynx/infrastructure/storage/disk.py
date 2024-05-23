@@ -2,12 +2,13 @@ import json
 import logging
 import os
 from pathlib import Path
+import pickle
 
 from golynx.infrastructure.storage.storage import Storage
 
 logger = logging.getLogger("infrastructure/storage")
 default_flush_dir = './data'
-default_flush_file = 'db.json'
+default_flush_file = 'golynx.db'
 
 class Disk(Storage):
     def __init__(
@@ -31,12 +32,12 @@ class Disk(Storage):
                 raise
         else:
             logger.info(f'Didn\'t find any database at {self.flush_location}. Initializing it...')
-            self.write(database={})
+            self.write(database=bytearray())
 
-    def get(self) -> dict:
-        with open(self.flush_location, 'r') as file:
-            return json.load(file)
+    def get(self) -> bytes:
+        with open(self.flush_location, 'rb') as file:
+            return file.read()
     
-    def write(self, database: dict):
-        with open(self.flush_location, 'w') as file:
-            json.dump(database, file)
+    def write(self, database: bytes):
+        with open(self.flush_location, 'wb') as file:
+            file.write(database)

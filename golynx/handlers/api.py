@@ -24,7 +24,7 @@ class API:
         
         golink_dto = GolinkDTO(**body)
         
-        self.link_manager.handle_update(golink_dto.toGolink())
+        self.link_manager.handle_update(golink_dto.toGolink("pepe@pepe.bat")) # TODO change
         
         return JSONResponse({'message': 'ok'}, status_code=HTTPStatus.CREATED)
     

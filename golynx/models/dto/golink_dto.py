@@ -6,5 +6,5 @@ class GolinkDTO:
     link: str
     redirection: str
 
-    def toGolink(self):
-        return Golink(link=self.link, redirection=self.redirection)
+    def toGolink(self, created_by: str):
+        return Golink(link=self.link, redirection=self.redirection, created_by=created_by)

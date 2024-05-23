@@ -6,10 +6,10 @@ class LinkManager:
         self.database = database
     
     def handle_redirection(self, link: str) -> str:
-        return self.database.get(link)
+        return self.database.get(link).redirection
     
     def handle_update(self, golink: Golink):
-        self.database.set(link=golink.link, redirection=golink.redirection)
+        self.database.set(golink)
     
     def handle_delete(self, link: str):
         self.database.delete(link)
