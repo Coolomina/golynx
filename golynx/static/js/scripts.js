@@ -1,95 +1,72 @@
-var ws = null;
-
-function connect() {
-    ws = new WebSocket("ws://" + window.location.host + "/cable");
-
-    ws.onopen = function(event) {
-        console.log("WebSocket connected!");
-    };
-
-    ws.onmessage = function(event) {
-        var messagesDiv = document.getElementById("messages");
-        messagesDiv.innerHTML += "<p>" + event.data + "</p>";
-    };
-}
-
-function disconnect() {
-    if (ws !== null) {
-        ws.close();
-        ws = null;
-        console.log("WebSocket disconnected!");
-    }
-}
-
-function sendMessage() {
-    var messageInput = document.getElementById("messageInput");
-    var message = messageInput.value;
-    if (ws !== null && message !== "") {
-        ws.send(message);
-        messageInput.value = "";
-    }
-}
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('/api')
-        .then(response => response.json())
-        .then(data => {
-            const golinksContainer = document.getElementById('golinks');
+    function fetchGoLinks() {
+        fetch('/api')
+            .then(response => response.json())
+            .then(data => {
+                const golinksTable = document.querySelector('#golinks tbody');
+                golinksTable.innerHTML = '';
+                Object.keys(data).forEach(key => {
+                    const golink = data[key];
+                    const row = document.createElement('tr');
 
-            Object.keys(data).forEach(key => {
-                const golink = data[key];
+                    const linkCell = document.createElement('td');
+                    linkCell.textContent = golink.link;
+                    row.appendChild(linkCell);
 
-                const linkDiv = document.createElement('div');
-                linkDiv.className = 'golink-item';
+                    const redirectionCell = document.createElement('td');
+                    const redirectionLink = document.createElement('a');
+                    redirectionLink.textContent = golink.redirection;
+                    redirectionLink.href = golink.redirection;
+                    redirectionLink.target = '_blank';
+                    redirectionCell.appendChild(redirectionLink);
+                    row.appendChild(redirectionCell);
 
-                const linkLabel = document.createElement('label');
-                linkLabel.textContent = 'Link: ';
-                linkDiv.appendChild(linkLabel);
+                    const createdByCell = document.createElement('td');
+                    createdByCell.textContent = golink.created_by;
+                    row.appendChild(createdByCell);
 
-                const linkSpan = document.createElement('span');
-                linkSpan.textContent = golink.link;
-                linkDiv.appendChild(linkSpan);
+                    const actionsCell = document.createElement('td');
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.className = 'delete-button';
+                    deleteButton.onclick = function () {
+                        if (confirm('Are you sure you want to delete this GoLink?')) {
+                            fetch(`/api/golink/${golink.link}`, {
+                                method: 'DELETE'
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                alert('GoLink deleted successfully!');
+                                fetchGoLinks(); // Reload the GoLinks after deletion
+                            })
+                            .catch(error => {
+                                console.error('Error deleting GoLink:', error);
+                                alert('Error deleting GoLink');
+                            });
+                        }
+                    };
+                    actionsCell.appendChild(deleteButton);
+                    row.appendChild(actionsCell);
 
-                golinksContainer.appendChild(linkDiv);
-
-                const redirectionDiv = document.createElement('div');
-                redirectionDiv.className = 'golink-item';
-
-                const redirectionLabel = document.createElement('label');
-                redirectionLabel.textContent = 'Redirection: ';
-                redirectionDiv.appendChild(redirectionLabel);
-
-                const redirectionLink = document.createElement('a');
-                redirectionLink.textContent = golink.redirection;
-                redirectionLink.href = golink.redirection;
-                redirectionLink.target = '_blank';
-                redirectionDiv.appendChild(redirectionLink);
-
-                golinksContainer.appendChild(redirectionDiv);
-
-                const createdByDiv = document.createElement('div');
-                createdByDiv.className = 'golink-item';
-
-                const createdByLabel = document.createElement('label');
-                createdByLabel.textContent = 'Created By: ';
-                createdByDiv.appendChild(createdByLabel);
-
-                const createdBySpan = document.createElement('span');
-                createdBySpan.textContent = golink.created_by;
-                createdByDiv.appendChild(createdBySpan);
-
-                golinksContainer.appendChild(createdByDiv);
-
-                const separator = document.createElement('hr');
-                golinksContainer.appendChild(separator);
+                    golinksTable.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                const golinksTable = document.querySelector('#golinks tbody');
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.textContent = 'Error loading data';
+                cell.colSpan = 4;
+                row.appendChild(cell);
+                golinksTable.appendChild(row);
             });
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            const golinksContainer = document.getElementById('golinks');
-            golinksContainer.textContent = 'Error loading data';
-        });
+    }
 
-    // Handle form submission
+    fetchGoLinks();
+
     const form = document.getElementById('golink-form');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -112,11 +89,14 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             alert('GoLink added successfully!');
-            location.reload(); // Reload the page to show the new GoLink
+            fetchGoLinks(); // Reload the GoLinks after adding a new one
         })
         .catch(error => {
             console.error('Error adding GoLink:', error);
             alert('Error adding GoLink');
         });
     });
+
+    // Log a message to the console
+    console.log('Page loaded and script executed.');
 });

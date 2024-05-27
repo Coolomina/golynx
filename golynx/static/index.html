@@ -7,16 +7,19 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- <h1>WebSocket Example</h1>
-    <button onclick="connect()">Connect</button>
-    <button onclick="disconnect()">Disconnect</button>
-    <div id="messages"></div>
-    <input type="text" id="messageInput">
-    <button onclick="sendMessage()">Send</button> -->
-    <p></p>
-    <div class="golink-container">
+    <div class="container">
         <h2>GoLink Information</h2>
-        <div id="golinks"></div>
+        <table id="golinks">
+            <thead>
+                <tr>
+                    <th>Link</th>
+                    <th>Redirection</th>
+                    <th>Created By</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
 
         <form id="golink-form">
             <h3>Add a new GoLink</h3>
@@ -33,6 +36,5 @@
             </div>
         </form>
     </div>
-    <script src="js/scripts.js"></script>
-</body>
+<script src="js/scripts.js"></script>
 </html>
