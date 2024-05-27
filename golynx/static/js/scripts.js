@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     createdByCell.textContent = golink.created_by;
                     row.appendChild(createdByCell);
 
+                    const timesVisitedCell = document.createElement('td');
+                    timesVisitedCell.textContent = golink.times_used;
+                    row.appendChild(timesVisitedCell);
+
                     const actionsCell = document.createElement('td');
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'Delete';
