@@ -27,3 +27,8 @@ def test_get_all(setup_database):
 
 def test_get_all_empty(setup_database):
     assert database.get_all() == {}
+
+def test_increment(setup_database):
+    database._data[GOLINK.link] = GOLINK
+    database.increment(GOLINK.link)
+    assert database._data[GOLINK.link].times_used == 1

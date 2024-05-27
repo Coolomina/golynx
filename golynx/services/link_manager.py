@@ -6,6 +6,7 @@ class LinkManager:
         self.database = database
     
     def handle_redirection(self, link: str) -> str:
+        self.database.increment(link)
         return self.database.get(link).redirection
     
     def handle_update(self, golink: Golink):
