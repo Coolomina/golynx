@@ -4,14 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebSocket Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .golink-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: auto;
+        }
+        .golink-container h2 {
+            text-align: center;
+        }
+        .golink-item {
+            margin-bottom: 10px;
+        }
+        .golink-item label {
+            font-weight: bold;
+        }
+        .golink-item a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .golink-item a:hover {
+            text-decoration: underline;
+        }
+        form {
+            margin-top: 20px;
+        }
+        form div {
+            margin-bottom: 10px;
+        }
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        form input[type="text"], form input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
-    <h1>WebSocket Example</h1>
+    <!-- <h1>WebSocket Example</h1>
     <button onclick="connect()">Connect</button>
     <button onclick="disconnect()">Disconnect</button>
     <div id="messages"></div>
     <input type="text" id="messageInput">
-    <button onclick="sendMessage()">Send</button>
+    <button onclick="sendMessage()">Send</button> -->
+    <p></p>
+    <div class="golink-container">
+        <h2>GoLink Information</h2>
+        <div id="golinks"></div>
+
+        <form id="golink-form">
+            <h3>Add a new GoLink</h3>
+            <div>
+                <label for="link">Link</label>
+                <input type="text" id="link" name="link" required>
+            </div>
+            <div>
+                <label for="redirection">Redirection</label>
+                <input type="text" id="redirection" name="redirection" required>
+            </div>
+            <div>
+                <input type="submit" value="Add GoLink">
+            </div>
+        </form>
+    </div>
     <script>
         var ws = null;
 
@@ -44,6 +109,97 @@
                 messageInput.value = "";
             }
         }
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/api')
+                .then(response => response.json())
+                .then(data => {
+                    const golinksContainer = document.getElementById('golinks');
+
+                    Object.keys(data).forEach(key => {
+                        const golink = data[key];
+
+                        const linkDiv = document.createElement('div');
+                        linkDiv.className = 'golink-item';
+
+                        const linkLabel = document.createElement('label');
+                        linkLabel.textContent = 'Link: ';
+                        linkDiv.appendChild(linkLabel);
+
+                        const linkSpan = document.createElement('span');
+                        linkSpan.textContent = golink.link;
+                        linkDiv.appendChild(linkSpan);
+
+                        golinksContainer.appendChild(linkDiv);
+
+                        const redirectionDiv = document.createElement('div');
+                        redirectionDiv.className = 'golink-item';
+
+                        const redirectionLabel = document.createElement('label');
+                        redirectionLabel.textContent = 'Redirection: ';
+                        redirectionDiv.appendChild(redirectionLabel);
+
+                        const redirectionLink = document.createElement('a');
+                        redirectionLink.textContent = golink.redirection;
+                        redirectionLink.href = golink.redirection;
+                        redirectionLink.target = '_blank';
+                        redirectionDiv.appendChild(redirectionLink);
+
+                        golinksContainer.appendChild(redirectionDiv);
+
+                        const createdByDiv = document.createElement('div');
+                        createdByDiv.className = 'golink-item';
+
+                        const createdByLabel = document.createElement('label');
+                        createdByLabel.textContent = 'Created By: ';
+                        createdByDiv.appendChild(createdByLabel);
+
+                        const createdBySpan = document.createElement('span');
+                        createdBySpan.textContent = golink.created_by;
+                        createdByDiv.appendChild(createdBySpan);
+
+                        golinksContainer.appendChild(createdByDiv);
+
+                        const separator = document.createElement('hr');
+                        golinksContainer.appendChild(separator);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    const golinksContainer = document.getElementById('golinks');
+                    golinksContainer.textContent = 'Error loading data';
+                });
+
+            // Handle form submission
+            const form = document.getElementById('golink-form');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const link = document.getElementById('link').value;
+                const redirection = document.getElementById('redirection').value;
+
+                fetch('/api/golink', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ link, redirection })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert('GoLink added successfully!');
+                    location.reload(); // Reload the page to show the new GoLink
+                })
+                .catch(error => {
+                    console.error('Error adding GoLink:', error);
+                    alert('Error adding GoLink');
+                });
+            });
+        });
     </script>
 </body>
 </html>
