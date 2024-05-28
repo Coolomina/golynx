@@ -8,6 +8,18 @@ This project uses [oauth2-proxy](https://oauth2-proxy.github.io/oauth2-proxy/) t
 
 You can find an example of `google` authentication provider in the [docker-compose.yml](docker-compose.yml).
 
+## Environment variables
+
+There are [some defaults](./golynx/config.py), but you can override them.
+
+| Key | Description |
+| --- | --- |
+| STORAGE_FLUSH_DIR | Absolute/relative path for the app to flush the DB to |
+| STORAGE_FLUSH_FILE | Name of the file the app will flush the DB to. It combines with `STORAGE_FLUSH_DIR` |
+| STORAGE_FLUSH_PERIOD_SECONDS | Time in seconds the DB will flush to the storage |
+| LOG_LEVEL | You know what this is |
+| DEV_MODE | For devs only, it won't register some middlewares for practicity |
+
 ## How do I fucking roll this out to the rest of my org?
 
 I'm not gonna make you download an obnoxious browser extension, are we crazy?

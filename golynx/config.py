@@ -7,3 +7,4 @@ class Config:
     DEV_MODE = config('DEV', cast=bool, default=False)
     STORAGE_FLUSH_DIR = config('STORAGE_FLUSH_DIR', cast=str, default='./data')
     STORAGE_FLUSH_FILE = config('STORAGE_FLUSH_FILE', cast=str, default='golynx.db')
+    STORAGE_FLUSH_PERIOD_SECONDS = config('STORAGE_FLUSH_PERIOD_SECONDS', cast=int, default=10)

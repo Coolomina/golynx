@@ -1,5 +1,6 @@
 import asyncio
 from ..infrastructure.database import Database
+from ..config import Config
 
 class DataFlusher:
     def __init__(self, database: Database) -> None:
@@ -9,7 +10,7 @@ class DataFlusher:
     async def run(self):
         while self.loop.is_running:
             self.database.flush()
-            await asyncio.sleep(1) # Config
+            await asyncio.sleep(Config.STORAGE_FLUSH_PERIOD_SECONDS)
 
     def stop(self):
         self.database.flush()
