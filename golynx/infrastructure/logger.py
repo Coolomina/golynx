@@ -2,7 +2,9 @@ import logging
 import os
 import sys
 
-LOG_LEVEL = os.environ.get("LOGLEVEL", "INFO").upper()
+from golynx.config import Config
+
+LOG_LEVEL = Config.LOG_LEVEL
 
 def initialize_logger(
     logger_name: str = "golynx", log_level: str = LOG_LEVEL

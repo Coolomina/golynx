@@ -19,9 +19,13 @@ from .infrastructure.logger import initialize_logger
 from .infrastructure.database import Database
 from .services.link_manager import LinkManager
 from .routes import ApiRoutes, GoRoutes
+from .config import Config
 
 logger = initialize_logger()
-storage: Disk = Disk()
+storage: Disk = Disk(
+    flush_dir=Config.STORAGE_FLUSH_DIR,
+    flush_file=Config.STORAGE_FLUSH_FILE,
+)
 database: Database = Database().initialize(storage=storage)
 link_manager = LinkManager(database=database)
 data_flusher = DataFlusher(database=database)
@@ -40,7 +44,7 @@ routes = [
 ]
 
 middleware = []
-if 'DEV' not in os.environ:
+if not Config.DEV_MODE:
     middleware.append(Middleware(OauthCheckMiddleware))
     logger.info(f'Registered middlewares: {middleware}')
 

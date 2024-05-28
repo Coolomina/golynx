@@ -1,9 +1,7 @@
 import logging
 from http import HTTPStatus
-from starlette.responses import JSONResponse
 from starlette.requests import Request
 from starlette.responses import RedirectResponse
-from ..models.dto.golink_dto import GolinkDTO
 
 from ..services.link_manager import LinkManager
 
@@ -18,4 +16,3 @@ class Go:
         redirect = self.link_manager.handle_redirection(link)
 
         return RedirectResponse(redirect, HTTPStatus.TEMPORARY_REDIRECT)
-    

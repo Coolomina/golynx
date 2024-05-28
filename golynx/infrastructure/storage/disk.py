@@ -2,19 +2,16 @@ import json
 import logging
 import os
 from pathlib import Path
-import pickle
 
 from golynx.infrastructure.storage.storage import Storage
 
 logger = logging.getLogger("infrastructure/storage")
-default_flush_dir = './data'
-default_flush_file = 'golynx.db'
 
 class Disk(Storage):
     def __init__(
         self, 
-        flush_dir = default_flush_dir, 
-        flush_file = default_flush_file,
+        flush_dir, 
+        flush_file,
     ) -> None:
         self.flush_dir = flush_dir
         self.flush_file = flush_file
