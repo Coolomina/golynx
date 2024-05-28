@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     function fetchGoLinks() {
-        fetch('/api')
+        fetch('/api/golinks')
             .then(response => response.json())
             .then(data => {
                 const golinksTable = document.querySelector('#golinks tbody');

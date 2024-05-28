@@ -18,6 +18,7 @@ from .handlers import cable
 from .infrastructure.logger import initialize_logger
 from .infrastructure.database import Database
 from .services.link_manager import LinkManager
+from .routes import ApiRoutes, GoRoutes
 
 logger = initialize_logger()
 storage: Disk = Disk()
@@ -30,10 +31,10 @@ api = API(link_manager=link_manager)
 
 routes = [
     # Order matters
-    Route('/api', endpoint=api.get_all),
-    Route('/go/{link}', endpoint=go.redirect),
-    Route('/api/golink', endpoint=api.update, methods=["PUT"]),
-    Route('/api/golink/{link}', endpoint=api.delete, methods=["DELETE"]),
+    Route(GoRoutes.link, endpoint=go.redirect),
+    Route(ApiRoutes.golinks, endpoint=api.get_all),
+    Route(ApiRoutes.golink_update, endpoint=api.update, methods=["PUT"]),
+    Route(ApiRoutes.golink_delete, endpoint=api.delete, methods=["DELETE"]),
     WebSocketRoute("/cable", endpoint=cable.websocket_endpoint),
     Mount('/', app=StaticFiles(directory='golynx/static', html=True), name="static"),
 ]
