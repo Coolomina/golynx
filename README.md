@@ -8,6 +8,10 @@ This project can use [oauth2-proxy](https://oauth2-proxy.github.io/oauth2-proxy/
 
 You can find an example of `google` authentication provider in the [docker-compose.yml](docker-compose.yml).
 
+## Poor demo
+
+![Cool huh](./img/golynx.gif)
+
 ## Implementation details
 
 You're tired of relying on Chrome history to re-visit handy URLs, so you say "I'm done with this crap" and you look for a cool `go-links` implementation out there. You find something sweet, you start configuring its shit, you have the db and cache in HA for max availability, your YAMLs are all interpolated with different configs for different envs.
