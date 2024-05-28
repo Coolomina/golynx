@@ -22,11 +22,21 @@ This `go-links` implementation aims to make things **absolutely dumb**. That's w
 
 ## Installation
 
+##### Container
+
 ```bash
 git clone https://github.com/Coolomina/golynx.git
 docker build -t golynx .
 docker run --rm -d -v $PWD/data:/app/data -p 8000:8000 golynx
 ```
+
+##### Bare metal
+
+Just do what the [Dockerfile](./Dockerfile) does but in your VM :D. I honestly haven't tried this.
+
+##### Kubernetes
+
+Fuck you.
 
 ## Environment variables
 
