@@ -14,7 +14,6 @@ from golynx.services.data_flusher import DataFlusher
 
 from .handlers.go import Go
 from .handlers.api import API
-from .handlers import cable
 from .infrastructure.logger import initialize_logger
 from .infrastructure.database import Database
 from .services.link_manager import LinkManager
@@ -39,7 +38,6 @@ routes = [
     Route(ApiRoutes.golinks, endpoint=api.get_all),
     Route(ApiRoutes.golink_update, endpoint=api.update, methods=["PUT"]),
     Route(ApiRoutes.golink_delete, endpoint=api.delete, methods=["DELETE"]),
-    WebSocketRoute("/cable", endpoint=cable.websocket_endpoint),
     Mount('/', app=StaticFiles(directory='golynx/static', html=True), name="static"),
 ]
 
