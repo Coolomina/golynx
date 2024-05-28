@@ -44,7 +44,7 @@ routes = [
 ]
 
 middleware = []
-if not Config.DEV_MODE:
+if not Config.BYPASS_OAUTH_PROXY:
     middleware.append(Middleware(OauthCheckMiddleware))
     logger.info(f'Registered middlewares: {middleware}')
 

@@ -2,6 +2,8 @@ import logging
 from http import HTTPStatus
 from starlette.responses import JSONResponse
 from starlette.requests import Request
+
+from golynx.config import Config
 from ..models.dto.golink_dto import GolinkDTO
 
 from ..services.link_manager import LinkManager
@@ -14,7 +16,7 @@ class API:
     
     async def update(self, request: Request):
         if 'X-Forwarded-Email' not in request.headers:
-            user_email = 'pepe@pepe.bat'
+            user_email = Config.DEFAULT_USER
         else:
             user_email = request.headers['X-Forwarded-Email']
 

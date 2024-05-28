@@ -4,6 +4,7 @@ import threading
 
 from golynx.models.domain.golink import Golink
 from golynx.infrastructure.storage.storage import Storage
+from golynx.config import Config
 
 logger = logging.getLogger("infrastructure/database")
 
@@ -11,7 +12,7 @@ class Database:
     default_redirection = Golink(
         link='default',
         redirection='https://www.chiquitoipsum.com/',
-        created_by='pepe',
+        created_by=Config.DEFAULT_USER,
     )
     
     def __init__(self) -> None:
