@@ -22,6 +22,7 @@ class Database:
         logger.info("Initializing database...")
         try:
             self._data: dict[str, Golink] = pickle.loads(self.storage.get())
+            logger.info(f'Initialised storage with {len(self._data)} elements')
         except:
             self._data: dict[str, Golink] = {}
         return self

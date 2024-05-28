@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (!response.ok) {
                                     throw new Error('Network response was not ok');
                                 }
-                                alert('GoLink deleted successfully!');
                                 fetchGoLinks(); // Reload the GoLinks after deletion
                             })
                             .catch(error => {
@@ -92,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.json();
         })
         .then(data => {
-            alert('GoLink added successfully!');
             fetchGoLinks(); // Reload the GoLinks after adding a new one
         })
         .catch(error => {
