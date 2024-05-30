@@ -11,7 +11,7 @@ logger = logging.getLogger("infrastructure/database")
 class Database:
     default_redirection = Golink(
         link='default',
-        redirection='https://www.chiquitoipsum.com/',
+        redirection=Config.DEFAULT_REDIRECTION,
         created_by=Config.DEFAULT_USER,
     )
     

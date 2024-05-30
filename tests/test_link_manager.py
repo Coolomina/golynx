@@ -1,6 +1,7 @@
 from golynx.services.link_manager import LinkManager 
 from tests.fixtures.golinks import GOLINK, GOLINK_MODIFIED
 from .fixtures.database import database
+from golynx.config import Config
 
 link_manager = LinkManager(database=database)
 
@@ -10,7 +11,7 @@ def test_handle_existing_redirection():
 
 def test_handle_default_redirection():
     link_manager.database._data = {}
-    assert link_manager.handle_redirection('pepe') == 'https://www.chiquitoipsum.com/'
+    assert link_manager.handle_redirection('pepe') == Config.DEFAULT_REDIRECTION
     
 def test_handle_create_redirection():
     link_manager.handle_update(GOLINK)
