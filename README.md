@@ -46,16 +46,16 @@ Fuck you.
 
 There are [some defaults](./golynx/config.py), but you can override them.
 
-| Key | Description |
-| --- | --- |
-| BYPASS_OAUTH_PROXY | Whether you want to use it with `oauth2-proxy` or not |
-| STORAGE_FLUSH_DIR | Absolute/relative path for the app to flush the DB to |
-| STORAGE_FLUSH_FILE | Name of the file the app will flush the DB to. It combines with `STORAGE_FLUSH_DIR` |
-| STORAGE_FLUSH_PERIOD_SECONDS | Time in seconds the DB will flush to the storage |
-| DEFAULT_USER | When bypassing oauth2-proxy, this will be the user that creates the golynx |
-| DEFAULT_REDIRECTION | Default redirection when not matching any golynx |
-| LOG_LEVEL | You know what this is |
-| DEV_MODE | For devs only, it won't register some middlewares for practicity |
+| Key | Description | Default |
+| --- | --- | --- |
+| BYPASS_OAUTH_PROXY | Whether you want to use it with `oauth2-proxy` or not | `False` |
+| STORAGE_FLUSH_DIR | Absolute/relative path for the app to flush the DB to | `./data` |
+| STORAGE_FLUSH_FILE | Name of the file the app will flush the DB to. It combines with `STORAGE_FLUSH_DIR` | `golynx.db` |
+| STORAGE_FLUSH_PERIOD_SECONDS | Time in seconds the DB will flush to the storage | `10` |
+| DEFAULT_USER | When bypassing oauth2-proxy, this will be the user that creates the golynx | `default@default` |
+| DEFAULT_REDIRECTION | Default redirection when not matching any golynx | `https://www.chiquitoipsum.com/` |
+| LOG_LEVEL | You know what this is | `INFO` |
+
 
 ## How do I fucking roll this out to the rest of my org?
 
