@@ -24,6 +24,10 @@ This `go-links` implementation aims to make things **absolutely dumb**. That's w
 - It flushes it to disk every now and then. Fuck you, you're paying for a disk, you better use it.
 - The frontend uses no frameworks. It fucking loads in 4ms.
 
+> How do I backup my shit?
+
+https://linux.die.net/man/1/inotifywait
+
 ## Installation
 
 ##### Container
