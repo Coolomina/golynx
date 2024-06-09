@@ -17,3 +17,10 @@ ANOTHER_GOLINK = Golink(
     redirection='http://pepsis.com',
     created_by='pepe',
 )
+
+DEFAULT_GOLINK = Golink(
+    link = 'lol',
+    redirection = 'lolo',
+    created_by = 'default@default',
+    times_used = 0,
+)

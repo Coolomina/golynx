@@ -14,8 +14,9 @@ def setup_database():
 
 class FakeStorage(Storage):
     def __init__(self) -> None:
-        pass
-    def get(self) -> dict:
-        return {}
-    def write(self, data: dict):
-        pass
+        self._fake_disk_info = bytearray()
+    def get(self) -> bytes:
+        return self._fake_disk_info
+    def write(self, data: bytes):
+        self._fake_disk_info = data
+
