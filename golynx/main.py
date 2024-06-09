@@ -1,7 +1,5 @@
 import asyncio
 import contextlib
-import os
-from starlette.routing import WebSocketRoute
 from starlette.routing import Route
 from starlette.applications import Starlette
 from starlette.routing import Mount

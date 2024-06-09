@@ -1,4 +1,3 @@
-import json
 import logging
 import os
 from pathlib import Path
@@ -24,8 +23,8 @@ class Disk(Storage):
             try:
                 with open(self.flush_location, 'r'):
                     logger.info(f'Storage initialised at {self.flush_location}')
-            except json.JSONDecodeError:
-                logger.error(f"Error: The file {self.flush_location} is not a valid JSON file.")
+            except:
+                logger.error(f"Error: The file {self.flush_location} is not a valid DB file.")
                 raise
         else:
             logger.info(f'Didn\'t find any database at {self.flush_location}. Initializing it...')
