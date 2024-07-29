@@ -66,3 +66,6 @@ form input[type="submit"]:hover {
 .delete-button:hover {
     background-color: #FF4500;
 }
+.break-words {
+    word-break: break-all;
+}

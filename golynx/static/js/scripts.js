@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     redirectionLink.textContent = golink.redirection;
                     redirectionLink.href = golink.redirection;
                     redirectionLink.target = '_blank';
+                    redirectionCell.classList.add('break-words');
                     redirectionCell.appendChild(redirectionLink);
                     row.appendChild(redirectionCell);
 
