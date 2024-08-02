@@ -41,6 +41,10 @@ class Database:
             self.lock.release()
 
     def set(self, golink: Golink):
+        if golink.link in self._data:
+            times_used = self._data[golink.link].times_used
+            golink.times_used = times_used
+
         self.lock.acquire()
         try:
             self._data[golink.link] = golink
