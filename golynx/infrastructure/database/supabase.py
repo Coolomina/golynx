@@ -3,7 +3,6 @@ import supabase
 
 from golynx.config import Config
 from golynx.infrastructure.database.base import BaseDatabase
-from golynx.infrastructure.storage.storage import Storage
 from golynx.models.domain.golink import Golink
 
 logger = logging.getLogger("infrastructure/supabase")
@@ -54,7 +53,7 @@ class SupabaseDatabase(BaseDatabase):
         pass
 
     def get_all(self, as_dict=True):
-        response = self.client.table("golynx").select("*").execute()
+        response = self.client.table("golynx").select("*").order("times_used", desc=True).execute()
         raw_golinks = response.data
         golinks = {}
         for raw_golink in raw_golinks:

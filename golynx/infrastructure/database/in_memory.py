@@ -65,11 +65,15 @@ class InMemoryDatabase(BaseDatabase):
         if self._data.__len__ == 0:
             return {}
         data = {}
-        for link in self._data.keys():
+        
+        items = self._data.items()
+        items = sorted(items, key=lambda x: x[1].times_used, reverse=True)
+        
+        for link, golink in items:
             if as_dict:
-                data[link] = self._data[link].__dict__
+                data[link] = golink.__dict__
             else:
-                data[link] = self._data[link]
+                data[link] = golink
         return data
 
     def flush(self):
