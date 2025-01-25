@@ -10,36 +10,45 @@ from ..services.link_manager import LinkManager
 
 logger = logging.getLogger("services/api")
 
+
 class API:
     def __init__(self, link_manager: LinkManager) -> None:
         self.link_manager = link_manager
-    
+
     async def update(self, request: Request):
-        if 'X-Forwarded-Email' not in request.headers:
+        if "X-Forwarded-Email" not in request.headers:
             user_email = Config.DEFAULT_USER
         else:
-            user_email = request.headers['X-Forwarded-Email']
+            user_email = request.headers["X-Forwarded-Email"]
 
         body = await request.json()
-        link = body.get('link', None)
+        link = body.get("link", None)
         if link is None:
-            return JSONResponse({'message': 'missing \'link\' field in the request body'}, status_code=HTTPStatus.BAD_REQUEST)
-        
-        redirection = body.get('redirection', None)
+            return JSONResponse(
+                {"message": "missing 'link' field in the request body"},
+                status_code=HTTPStatus.BAD_REQUEST,
+            )
+
+        redirection = body.get("redirection", None)
         if redirection is None:
-            return JSONResponse({'message': 'missing \'redirection\' field in the request body'}, status_code=HTTPStatus.BAD_REQUEST)
-        
+            return JSONResponse(
+                {"message": "missing 'redirection' field in the request body"},
+                status_code=HTTPStatus.BAD_REQUEST,
+            )
+
         golink_dto = GolinkDTO(**body)
-        
+
         self.link_manager.handle_update(golink_dto.toGolink(user_email))
-        
-        return JSONResponse({'message': 'ok'}, status_code=HTTPStatus.CREATED)
-    
+
+        return JSONResponse({"message": "ok"}, status_code=HTTPStatus.CREATED)
+
     async def get_all(self, request: Request):
-        return JSONResponse(self.link_manager.handle_get_all(), status_code=HTTPStatus.OK)
-    
+        return JSONResponse(
+            self.link_manager.handle_get_all(), status_code=HTTPStatus.OK
+        )
+
     async def delete(self, request: Request):
-        link = request.path_params['link']
+        link = request.path_params["link"]
         self.link_manager.handle_delete(link)
-        
-        return JSONResponse({'message': 'deleted'}, status_code=HTTPStatus.OK)
+
+        return JSONResponse({"message": "deleted"}, status_code=HTTPStatus.OK)

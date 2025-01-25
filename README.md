@@ -56,7 +56,9 @@ There are [some defaults](./golynx/config.py), but you can override them.
 | DEFAULT_USER | When bypassing oauth2-proxy, this will be the user that creates the golynx | `default@default` |
 | DEFAULT_REDIRECTION | Default redirection when not matching any golynx | `https://www.chiquitoipsum.com/` |
 | LOG_LEVEL | You know what this is | `INFO` |
-
+| DATABASE | Type of database to use | `in_memory` |
+| SUPABASE_URL | URL of the Supabase instance | `https://lol.supabase.co` |
+| SUPABASE_KEY | Key of the Supabase instance | `lol` |
 
 ## How do I roll this out to the rest of my org?
 
