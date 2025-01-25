@@ -8,5 +8,3 @@ class Golink:
     redirection: str
     created_by: str
     times_used: int = 0
-    id: str | None = None
-    created_at: datetime | None = None

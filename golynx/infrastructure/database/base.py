@@ -24,8 +24,11 @@ class BaseDatabase:
     def update(self, link: str, golink: Golink):
         raise NotImplementedError
 
-    def get_all(self):
+    def get_all(self, as_dict=True):
         raise NotImplementedError
 
     def flush(self):
         pass
+
+    def truncate(self):
+        raise NotImplementedError

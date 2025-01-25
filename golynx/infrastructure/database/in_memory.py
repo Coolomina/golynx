@@ -61,14 +61,20 @@ class InMemoryDatabase(BaseDatabase):
         finally:
             self.lock.release()
 
-    def get_all(self):
+    def get_all(self, as_dict=True):
         if self._data.__len__ == 0:
             return {}
         data = {}
         for link in self._data.keys():
-            data[link] = self._data[link].__dict__
+            if as_dict:
+                data[link] = self._data[link].__dict__
+            else:
+                data[link] = self._data[link]
         return data
 
     def flush(self):
         data = pickle.dumps(self._data)
         self.storage.write(data)
+
+    def truncate(self):
+        self._data: dict[str, Golink] = {}
