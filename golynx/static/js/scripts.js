@@ -69,8 +69,15 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    function fetchConfig() {
+        fetch('/config')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            });
+    }
+    fetchConfig();
     fetchGoLinks();
-
     const form = document.getElementById('golink-form');
     form.addEventListener('submit', function (event) {
         event.preventDefault();

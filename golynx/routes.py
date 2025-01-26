@@ -8,3 +8,6 @@ class ApiRoutes:
 class GoRoutes:
     base = "/go"
     link = base + "/{link}"
+
+class ConfigRoutes:
+    base = "/config"

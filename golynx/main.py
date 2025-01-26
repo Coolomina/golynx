@@ -6,6 +6,7 @@ from starlette.routing import Mount
 from starlette.staticfiles import StaticFiles
 from starlette.middleware import Middleware
 
+from golynx.handlers import config as config_handler
 from golynx.infrastructure.database.base import BaseDatabase
 from golynx.infrastructure.database.provider import DatabaseProvider
 from golynx.infrastructure.storage.disk import Disk
@@ -16,7 +17,7 @@ from .handlers.go import Go
 from .handlers.api import API
 from .infrastructure.logger import initialize_logger
 from .services.link_manager import LinkManager
-from .routes import ApiRoutes, GoRoutes
+from .routes import ApiRoutes, ConfigRoutes, GoRoutes
 from .config import Config
 
 logger = initialize_logger()
@@ -35,11 +36,12 @@ data_flusher = DataFlusher(database=database)
 
 go = Go(link_manager=link_manager)
 api = API(link_manager=link_manager)
-
+config = config_handler.ConfigHandler()
 routes = [
     # Order matters
     Route(GoRoutes.link, endpoint=go.redirect),
     Route(ApiRoutes.golinks, endpoint=api.get_all),
+    Route(ConfigRoutes.base, endpoint=config.get_all),
     Route(ApiRoutes.golink_update, endpoint=api.update, methods=["PUT"]),
     Route(ApiRoutes.golink_delete, endpoint=api.delete, methods=["DELETE"]),
     Mount("/", app=StaticFiles(directory="golynx/static", html=True), name="static"),
