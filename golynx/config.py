@@ -7,6 +7,12 @@ class DatabaseType(Enum):
     SUPABASE = "supabase"
 
 
+class StorageType(Enum):
+    DISK = "disk"
+    S3 = "s3"
+    SUPABASE = "supabase"
+
+
 class Config:
     config: ServerConfig = ServerConfig()
 
@@ -24,3 +30,11 @@ class Config:
     DATABASE = config("DATABASE", cast=DatabaseType, default=DatabaseType.IN_MEMORY)
     SUPABASE_URL = config("SUPABASE_URL", cast=str, default="https://lol.supabase.co")
     SUPABASE_KEY = config("SUPABASE_KEY", cast=str, default="lol")
+    STORAGE = config("STORAGE", cast=StorageType, default=StorageType.DISK)
+    STORAGE_S3_BUCKET = config("STORAGE_S3_BUCKET", cast=str, default="golynx")
+    STORAGE_S3_AWS_ACCESS_KEY_ID = config(
+        "STORAGE_S3_AWS_ACCESS_KEY_ID", cast=str, default="lol"
+    )
+    STORAGE_S3_AWS_SECRET_ACCESS_KEY = config(
+        "STORAGE_S3_AWS_SECRET_ACCESS_KEY", cast=str, default="lol"
+    )

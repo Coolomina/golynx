@@ -47,18 +47,22 @@ Just do what the [Dockerfile](./Dockerfile) does but in your VM :D. I honestly h
 
 There are [some defaults](./golynx/config.py), but you can override them.
 
-| Key | Description | Default |
-| --- | --- | --- |
-| BYPASS_OAUTH_PROXY | Whether you want to use it with `oauth2-proxy` or not | `False` |
-| STORAGE_FLUSH_DIR | Absolute/relative path for the app to flush the DB to | `./data` |
-| STORAGE_FLUSH_FILE | Name of the file the app will flush the DB to. It combines with `STORAGE_FLUSH_DIR` | `golynx.db` |
-| STORAGE_FLUSH_PERIOD_SECONDS | Time in seconds the DB will flush to the storage | `10` |
-| DEFAULT_USER | When bypassing oauth2-proxy, this will be the user that creates the golynx | `default@default` |
-| DEFAULT_REDIRECTION | Default redirection when not matching any golynx | `https://www.chiquitoipsum.com/` |
-| LOG_LEVEL | You know what this is | `INFO` |
-| DATABASE | Type of database to use | `in_memory` |
-| SUPABASE_URL | URL of the Supabase instance | `https://lol.supabase.co` |
-| SUPABASE_KEY | Key of the Supabase instance | `lol` |
+| Key | Description | Appliable when | Default |
+| --- | --- | --- | --- |
+| BYPASS_OAUTH_PROXY | Whether you want to use it with `oauth2-proxy` or not | - | `False` |
+| STORAGE_FLUSH_DIR | Absolute/relative path for the app to flush the DB to | - | `./data` |
+| STORAGE_FLUSH_FILE | Name of the file the app will flush the DB to. It combines with `STORAGE_FLUSH_DIR` | - | `golynx.db` |
+| STORAGE_FLUSH_PERIOD_SECONDS | Time in seconds the DB will flush to the storage | - | `10` |
+| DEFAULT_USER | When bypassing oauth2-proxy, this will be the user that creates the golynx | - | `default@default` |
+| DEFAULT_REDIRECTION | Default redirection when not matching any golynx | - | `https://www.chiquitoipsum.com/` |
+| LOG_LEVEL | You know what this is | - | `INFO` |
+| DATABASE | Type of database to use | - | `in_memory` |
+| SUPABASE_URL | URL of the Supabase instance | When using `supabase` database | `https://lol.supabase.co` |
+| SUPABASE_KEY | Key of the Supabase instance | When using `supabase` database | `lol` |
+| STORAGE_TYPE | Type of storage to use | - | `disk` |
+| STORAGE_S3_BUCKET | Bucket to use for S3 storage | When using `s3` storage | `golynx` |
+| STORAGE_S3_AWS_ACCESS_KEY_ID | AWS access key ID for S3 storage | When using `s3` storage | `lol` |
+| STORAGE_S3_AWS_SECRET_ACCESS_KEY | AWS secret access key for S3 storage | When using `s3` storage | `lol` |
 
 ## How do I roll this out to the rest of my org?
 

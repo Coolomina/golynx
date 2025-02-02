@@ -42,8 +42,7 @@ class SupabaseDatabase(BaseDatabase):
 
     def set(self, golink: Golink):
         self.client.table("golynx").upsert(
-            golink.__dict__,
-            on_conflict="link"
+            golink.__dict__, on_conflict="link"
         ).execute()
 
     def delete(self, link: str):
@@ -53,7 +52,12 @@ class SupabaseDatabase(BaseDatabase):
         pass
 
     def get_all(self, as_dict=True):
-        response = self.client.table("golynx").select("*").order("times_used", desc=True).execute()
+        response = (
+            self.client.table("golynx")
+            .select("*")
+            .order("times_used", desc=True)
+            .execute()
+        )
         raw_golinks = response.data
         golinks = {}
         for raw_golink in raw_golinks:

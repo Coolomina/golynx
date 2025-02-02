@@ -10,6 +10,7 @@ from golynx.handlers import config as config_handler
 from golynx.infrastructure.database.base import BaseDatabase
 from golynx.infrastructure.database.provider import DatabaseProvider
 from golynx.infrastructure.storage.disk import Disk
+from golynx.infrastructure.storage.provider import StorageProvider
 from golynx.middlewares.oauth_check import OauthCheckMiddleware
 from golynx.services.data_flusher import DataFlusher
 
@@ -21,15 +22,11 @@ from .routes import ApiRoutes, ConfigRoutes, GoRoutes
 from .config import Config
 
 logger = initialize_logger()
-storage: Disk = Disk(
-    flush_dir=Config.STORAGE_FLUSH_DIR,
-    flush_file=Config.STORAGE_FLUSH_FILE,
-)
 
+storage = StorageProvider(Config.STORAGE).get()
 database_provider = DatabaseProvider(Config.DATABASE).get()
 database: BaseDatabase = database_provider()
 database.initialize(storage=storage)
-
 
 link_manager = LinkManager(database=database)
 data_flusher = DataFlusher(database=database)

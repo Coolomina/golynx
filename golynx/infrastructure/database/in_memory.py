@@ -65,10 +65,10 @@ class InMemoryDatabase(BaseDatabase):
         if self._data.__len__ == 0:
             return {}
         data = {}
-        
+
         items = self._data.items()
         items = sorted(items, key=lambda x: x[1].times_used, reverse=True)
-        
+
         for link, golink in items:
             if as_dict:
                 data[link] = golink.__dict__
