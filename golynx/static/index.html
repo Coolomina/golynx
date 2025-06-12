@@ -3,39 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🦊 golynx</title>
+    <title>🦊 GOLYNX</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h2>🦊 golynx Information</h2>
-        <table id="golinks">
-            <thead>
-                <tr>
-                    <th>Link</th>
-                    <th>Redirection</th>
-                    <th>Created By</th>
-                    <th>Times used</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+    <div class="main-container">
+        <header class="brutal-header">
+            <h1 class="brutal-title">🦊 GOLYNX</h1>
+            <p class="brutal-subtitle">EXTREME LINK SHORTENING</p>
+        </header>
 
-        <form id="golink-form">
-            <h3>Add a new golynx</h3>
-            <div>
-                <label for="link">Link</label>
-                <input type="text" id="link" name="link" required>
+        <div class="brutal-section">
+            <div class="section-header">
+                <h2 class="section-title">YOUR LINKS</h2>
             </div>
-            <div>
-                <label for="redirection">Redirection</label>
-                <input type="text" id="redirection" name="redirection" required>
+            <div class="table-container">
+                <table id="golinks" class="brutal-table">
+                    <thead>
+                        <tr>
+                            <th>LINK</th>
+                            <th>REDIRECT</th>
+                            <th>CREATOR</th>
+                            <th>USES</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
-            <div>
-                <input type="submit" value="Add link">
+        </div>
+
+        <div class="brutal-section">
+            <div class="section-header">
+                <h2 class="section-title">ADD NEW LINK</h2>
             </div>
-        </form>
+            <form id="golink-form" class="brutal-form">
+                <div class="input-group">
+                    <label for="link" class="brutal-label">LINK NAME</label>
+                    <input type="text" id="link" name="link" class="brutal-input" placeholder="my-awesome-link" required>
+                </div>
+                <div class="input-group">
+                    <label for="redirection" class="brutal-label">DESTINATION URL</label>
+                    <input type="text" id="redirection" name="redirection" class="brutal-input" placeholder="https://example.com" required>
+                </div>
+                <button type="submit" class="brutal-button brutal-button-primary">
+                    ADD LINK
+                </button>
+            </form>
+        </div>
     </div>
 <script src="js/scripts.js"></script>
+</body>
 </html>
